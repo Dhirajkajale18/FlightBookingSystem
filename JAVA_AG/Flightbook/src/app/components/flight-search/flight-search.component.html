@@ -1,0 +1,161 @@
+<div class="flight-search-container">
+  <div class="search-header">
+    <h2>Book a Flight</h2>
+  </div>
+  
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmitBooking()" class="booking-form">
+    <!-- Trip Type Toggle -->
+    <div class="form-group trip-type">
+      <button type="button" 
+              [class.active]="isRoundTrip"
+              (click)="toggleTripType(true)">
+        Round Trip
+      </button>
+      <button type="button" 
+              [class.active]="!isRoundTrip"
+              (click)="toggleTripType(false)">
+        One Way
+      </button>
+    </div>
+
+    <!-- Flight Details -->
+    <div class="form-row">
+      <div class="form-group">
+        <label for="from">From</label>
+        <input type="text" id="from" formControlName="from" placeholder="City or Airport" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="to">To</label>
+        <input type="text" id="to" formControlName="to" placeholder="City or Airport" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="departDate">Departure</label>
+        <input type="date" id="departDate" formControlName="departDate" [min]="today" required>
+      </div>
+      
+      <div class="form-group" *ngIf="isRoundTrip">
+        <label for="returnDate">Return</label>
+        <input type="date" id="returnDate" formControlName="returnDate" [min]="minReturnDate">
+      </div>
+      
+      <div class="form-group">
+        <label for="passengers">Passengers</label>
+        <select id="passengers" formControlName="passengers">
+          <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]" [value]="i">{{i}} {{i === 1 ? 'Passenger' : 'Passengers'}}</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="cabinClass">Class</label>
+        <select id="cabinClass" formControlName="cabinClass">
+          <option value="economy">Economy</option>
+          <option value="premium_economy">Premium Economy</option>
+          <option value="business">Business</option>
+          <option value="first">First Class</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Flight Options -->
+    <div class="flight-options">
+      <h3 (click)="showFlightOptions = !showFlightOptions">
+        <span>Flight Options</span>
+        <span class="toggle-icon">{{showFlightOptions ? '−' : '+'}}</span>
+      </h3>
+      
+      <div class="options-grid" *ngIf="showFlightOptions">
+        <label class="option">
+          <input type="checkbox" formControlName="directFlights">
+          <span>Direct flights only</span>
+        </label>
+        
+        <label class="option">
+          <input type="checkbox" formControlName="refundable">
+          <span>Refundable fares</span>
+        </label>
+        
+        <label class="option">
+          <input type="checkbox" formControlName="baggage" [checked]="true">
+          <span>Include checked baggage</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Passenger Details -->
+    <div class="passenger-details">
+      <h3>Passenger Information</h3>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" formControlName="firstName" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" formControlName="lastName" required>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" formControlName="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" formControlName="phone" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="notes">Special Requests (Optional)</label>
+        <textarea id="notes" formControlName="notes" rows="2" placeholder="Meal preferences, special assistance, etc."></textarea>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button type="button" class="btn btn-secondary" (click)="onSearch()" [disabled]="bookingForm.invalid">
+        Search Flights
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="!bookingForm.valid || isBooking">
+        <span *ngIf="!isBooking">Book Flight</span>
+        <span *ngIf="isBooking" class="spinner">Processing...</span>
+      </button>
+    </div>
+  </form>
+  
+  <!-- Booking Confirmation -->
+  <div *ngIf="bookings.length > 0" class="bookings-list">
+    <h3>Your Bookings</h3>
+    <div *ngFor="let booking of bookings" class="booking-card">
+      <div class="booking-header">
+        <span class="booking-id">Booking #{{booking.flightNumber}}</span>
+        <span class="booking-status">Confirmed</span>
+      </div>
+      <div class="booking-details">
+        <div class="passenger">{{booking.firstName}} {{booking.lastName}}</div>
+        <div class="flight-class">{{booking.seatClass | titlecase}} Class</div>
+        <div class="booking-dates" *ngIf="booking.departDate">
+          {{ booking.departDate | date:'mediumDate' }}
+          <span *ngIf="booking.returnDate"> - {{ booking.returnDate | date:'mediumDate' }}</span>
+          <span *ngIf="booking.passengers"> • {{ booking.passengers }} {{ booking.passengers === 1 ? 'passenger' : 'passengers' }}</span>
+        </div>
+      </div>
+      <div class="booking-actions">
+        <button class="btn secondary" (click)="viewBookingDetails(booking)">
+          <i class="material-icons">visibility</i> View
+        </button>
+        <button class="btn danger" (click)="cancelBooking(booking)">
+          <i class="material-icons">cancel</i> Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

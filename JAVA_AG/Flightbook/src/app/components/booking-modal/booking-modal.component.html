@@ -1,0 +1,21 @@
+<div *ngIf="isOpen()" class="overlay">
+  <div class="modal">
+    <div class="header">
+      <h3>Confirm Booking</h3>
+      <button class="icon" (click)="onClose()">✕</button>
+    </div>
+
+    <div class="body" *ngIf="selectedFlight() as f">
+      <p>
+        <strong>{{ f.airline }} {{ f.flightNumber }}</strong><br>
+        {{ f.departureAirport }} ({{ f.departureCity }}) → {{ f.arrivalAirport }} ({{ f.arrivalCity }})<br>
+        {{ f.departureTime | date:'shortTime' }} → {{ f.arrivalTime | date:'shortTime' }} • {{ formatDuration(f.duration) }}
+      </p>
+    </div>
+
+    <div class="footer">
+      <button class="btn secondary" (click)="onClose()">Cancel</button>
+      <button class="btn primary" (click)="onConfirm()">Confirm</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.35); display: grid; place-items: center; }
+.modal { background: #fff; width: min(520px, 92vw); border-radius: .75rem; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+.header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-bottom: 1px solid #e5e7eb; }
+.body { padding: 1rem 1.25rem; color: #374151; }
+.footer { display: flex; justify-content: flex-end; gap: .75rem; padding: 1rem 1.25rem; border-top: 1px solid #e5e7eb; }
+.icon { background: transparent; border: 0; font-size: 1.1rem; cursor: pointer; }
+.btn { border: 0; padding: .55rem .9rem; border-radius: .45rem; cursor: pointer; }
+.primary { background: #16a34a; color: white; }
+.secondary { background: #e5e7eb; color: #111827; }

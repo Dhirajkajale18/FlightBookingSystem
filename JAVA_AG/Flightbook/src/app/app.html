@@ -1,0 +1,45 @@
+<header class="nav">
+  <div class="brand">
+    <div class="logo">✈️</div>
+    <span>SkyFly</span>
+  </div>
+ 
+</header>
+
+<section class="hero container">
+  <h1>Find and Book Flights, Fast.</h1>
+  <p>Angular-powered flight booking application with reactive forms.</p>
+
+  <!-- Search Card -->
+  <app-flight-search 
+    (searchFlights)="onSearchFlights($event)"
+    (searchInitiated)="onSearchInitiated($event)">
+  </app-flight-search>
+
+  <!-- Loading Indicator -->
+  <div class="loading-indicator" *ngIf="isLoading()">
+    <div class="spinner"></div>
+    <p>Searching for flights...</p>
+  </div>
+
+  <!-- Results -->
+  <app-flight-results 
+    [flights]="searchResults()" 
+    [showResults]="showResults() && !isLoading()"
+    (bookFlight)="onBookFlight($event)">
+  </app-flight-results>
+</section>
+
+<!-- Booking Modal -->
+<app-booking-modal 
+  [isOpen]="isBookingModalOpen()" 
+  [selectedFlight]="selectedFlight()"
+  (closeModal)="closeBookingModal()"
+  (confirmBooking)="onConfirmBooking($event)">
+</app-booking-modal>
+
+<footer class="container">
+  <p>Angular Flight Booking App • Reactive forms with TypeScript models.</p>
+</footer>
+
+<router-outlet />

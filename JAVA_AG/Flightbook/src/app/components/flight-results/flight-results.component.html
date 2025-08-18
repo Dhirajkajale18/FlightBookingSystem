@@ -1,0 +1,93 @@
+<div class="results" *ngIf="showResults">
+  <div class="results-header">
+    <h2>Available Flights</h2>
+    <div class="sort-options">
+      <span>Sort by:</span>
+      <button 
+        [class.active]="sortBy() === 'price'" 
+        (click)="onSort('price')">
+        Price {{ sortBy() === 'price' ? (sortDirection() === 'asc' ? '↑' : '↓') : '' }}
+      </button>
+      <button 
+        [class.active]="sortBy() === 'departure'" 
+        (click)="onSort('departure')">
+        Departure {{ sortBy() === 'departure' ? (sortDirection() === 'asc' ? '↑' : '↓') : '' }}
+      </button>
+      <button 
+        [class.active]="sortBy() === 'duration'" 
+        (click)="onSort('duration')">
+        Duration {{ sortBy() === 'duration' ? (sortDirection() === 'asc' ? '↑' : '↓') : '' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="flight-list">
+    <div *ngFor="let flight of sortedFlights" class="flight-card">
+      <div class="flight-header">
+        <div class="airline">
+          <div class="airline-logo">✈️</div>
+          <span class="airline-name">{{ flight.airline }}</span>
+          <span class="flight-number">{{ flight.flightNumber }}</span>
+        </div>
+        <div class="price">
+          <span class="amount">{{ flight.price | currency:'USD':'symbol':'1.0-0' }}</span>
+          <span class="per-person">per person</span>
+        </div>
+      </div>
+
+      <div class="flight-details">
+        <div class="departure">
+          <div class="time">{{ flight.departureTime | date:'HH:mm' }}</div>
+          <div class="airport">{{ flight.departureAirport }}</div>
+          <div class="city">{{ flight.departureCity }}</div>
+          <div class="terminal">Terminal {{ flight.departureTerminal }} Gate {{ flight.departureGate }}</div>
+        </div>
+
+        <div class="duration">
+          <div class="stops" *ngIf="flight.stops === 0">Direct</div>
+          <div class="stops" *ngIf="flight.stops > 0">{{ flight.stops }} stop{{ flight.stops > 1 ? 's' : '' }}</div>
+          <div class="duration-line">
+            <span class="dot"></span>
+            <span class="line"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="duration-time">{{ formatDuration(flight.duration) }}</div>
+        </div>
+
+        <div class="arrival">
+          <div class="time">{{ flight.arrivalTime | date:'HH:mm' }}</div>
+          <div class="airport">{{ flight.arrivalAirport }}</div>
+          <div class="city">{{ flight.arrivalCity }}</div>
+          <div class="terminal" *ngIf="flight.arrivalTerminal">Terminal {{ flight.arrivalTerminal }}</div>
+        </div>
+      </div>
+
+      <div class="flight-footer">
+        <div class="amenities">
+          <span *ngIf="flight.mealService" title="Meal Service">🍽️</span>
+          <span *ngIf="flight.wifiAvailable" title="WiFi Available">📶</span>
+          <span *ngIf="flight.entertainment" title="In-flight Entertainment">🎬</span>
+          <span *ngIf="flight.powerOutlets" title="Power Outlets">🔌</span>
+        </div>
+        <button 
+          class="book-button" 
+          (click)="onBook(flight)" 
+          [disabled]="!flight.available || !flight.availableSeats"
+          [class.disabled]="!flight.available || !flight.availableSeats">
+          {{ flight.available && flight.availableSeats > 0 ? 'Book Now' : 'Not Available' }}
+          <span *ngIf="flight.availableSeats > 0 && flight.availableSeats <= 10" class="seats-left">
+            ({{ flight.availableSeats }} left)
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="!flights || flights.length === 0" class="no-flights">
+      <div class="no-flights-content">
+        <h3>No flights found</h3>
+        <p>We couldn't find any flights matching your search criteria.</p>
+        <p>Try adjusting your search filters or dates.</p>
+      </div>
+    </div>
+  </div>
+</div>
