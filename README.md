@@ -97,7 +97,7 @@ Bootstrap / Tailwind (optional for UI styling)
 
 **🚀 Setup Instructions**
 1️⃣ Clone the Repository
-git clone https://github.com/your-username/flight-booking-system.git
+git clone https://github.com/Dhirajkajale26/flight-booking-system.git
 cd flight-booking-system
 
 2️⃣ Backend Setup (Spring Boot)
