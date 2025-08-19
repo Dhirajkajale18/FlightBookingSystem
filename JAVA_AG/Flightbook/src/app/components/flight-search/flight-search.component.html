@@ -125,7 +125,7 @@
         Search Flights
       </button>
       <button type="submit" class="btn btn-primary" [disabled]="!bookingForm.valid || isBooking">
-        <span *ngIf="!isBooking">Book Flight</span>
+        <span *ngIf="!isBooking">Booked flights</span>
         <span *ngIf="isBooking" class="spinner">Processing...</span>
       </button>
     </div>

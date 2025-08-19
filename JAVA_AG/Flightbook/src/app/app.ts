@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FlightSearchComponent } from './components/flight-search/flight-search.component';
 import { FlightResultsComponent } from './components/flight-results/flight-results.component';
@@ -9,7 +10,7 @@ import { FlightService } from './services/flight.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FlightSearchComponent, FlightResultsComponent, BookingModalComponent],
+  imports: [CommonModule, RouterOutlet, FlightSearchComponent, FlightResultsComponent, BookingModalComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

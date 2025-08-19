@@ -199,6 +199,45 @@
   gap: 0.75rem;
 }
 
+.book-all-flights {
+  margin-top: 1.5rem;
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 1px solid #f0f0f0;
+  background-color: #fafafa;
+  border-radius: 0 0 8px 8px;
+}
+
+.book-all-button {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.book-all-button:hover:not(:disabled) {
+  background-color: #1565c0;
+}
+
+.book-all-button:disabled {
+  background-color: #bdbdbd;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.book-all-button .seats-left {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
 .amenities span {
   font-size: 1.1rem;
   opacity: 0.8;

@@ -14,13 +14,17 @@ export class FlightResultsComponent {
   private _flights = signal<Flight[]>([]);
   sortBy = signal<string>('price');
   sortDirection = signal<'asc' | 'desc'>('asc');
-
+  
   @Input() set flights(value: Flight[] | null) {
     this._flights.set(value || []);
   }
   
-  get flights(): Flight[] {
+  get flights(): Flight[] | null {
     return this._flights();
+  }
+  
+  get firstFlight(): Flight | null {
+    return this.flights && this.flights.length > 0 ? this.flights[0] : null;
   }
   
   @Input() showResults = false;

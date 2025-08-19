@@ -22,7 +22,7 @@
   </div>
 
   <div class="flight-list">
-    <div *ngFor="let flight of sortedFlights" class="flight-card">
+    <div *ngFor="let flight of sortedFlights()" class="flight-card">
       <div class="flight-header">
         <div class="airline">
           <div class="airline-logo">✈️</div>
@@ -69,16 +69,6 @@
           <span *ngIf="flight.entertainment" title="In-flight Entertainment">🎬</span>
           <span *ngIf="flight.powerOutlets" title="Power Outlets">🔌</span>
         </div>
-        <button 
-          class="book-button" 
-          (click)="onBook(flight)" 
-          [disabled]="!flight.available || !flight.availableSeats"
-          [class.disabled]="!flight.available || !flight.availableSeats">
-          {{ flight.available && flight.availableSeats > 0 ? 'Book Now' : 'Not Available' }}
-          <span *ngIf="flight.availableSeats > 0 && flight.availableSeats <= 10" class="seats-left">
-            ({{ flight.availableSeats }} left)
-          </span>
-        </button>
       </div>
     </div>
 
@@ -88,6 +78,19 @@
         <p>We couldn't find any flights matching your search criteria.</p>
         <p>Try adjusting your search filters or dates.</p>
       </div>
+    </div>
+
+    <div class="book-all-flights" *ngIf="firstFlight">
+      <button 
+        class="book-all-button"
+        (click)="onBook(firstFlight)" 
+        [disabled]="!firstFlight.available || !firstFlight.availableSeats"
+        [class.disabled]="!firstFlight.available || !firstFlight.availableSeats">
+        {{ firstFlight.available && firstFlight.availableSeats > 0 ? 'Book This Flight' : 'Flight Not Available' }}
+        <span *ngIf="firstFlight.availableSeats > 0 && firstFlight.availableSeats <= 10" class="seats-left">
+          ({{ firstFlight.availableSeats }} left)
+        </span>
+      </button>
     </div>
   </div>
 </div>
