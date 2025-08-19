@@ -72,7 +72,17 @@ Bootstrap / Tailwind (optional for UI styling)
 
 **📂 Project Structure**
 
+![alt img](https://github.com/Dhirajkajale18/FlightBookingSystem/blob/main/structure1.png?raw=true)
 
+
+
+
+![alt img](https://github.com/Dhirajkajale18/FlightBookingSystem/blob/main/structure2.png?raw=true)
+
+
+
+
+![alt img](https://github.com/Dhirajkajale18/FlightBookingSystem/blob/main/structure3.png?raw=true)
 
 
 
@@ -124,9 +134,9 @@ Frontend will start at: http://localhost:4200
 
 🖼️ Screenshots (Optional)
 
+![alt img](https://github.com/Dhirajkajale18/FlightBookingSystem/blob/main/web1.png?raw=true)
 
+![alt img](https://github.com/Dhirajkajale18/FlightBookingSystem/blob/main/web2.png?raw=true)
 
-
-
-
+![alt img](https://github.com/Dhirajkajale18/FlightBookingSystem/blob/main/web3.png?raw=true)
 
